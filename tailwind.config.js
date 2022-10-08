@@ -15,6 +15,9 @@ module.exports = {
         lightGrey: '#f9f9f9',
         grey: '#bbbbbb',
         lightBlack: '#333333',
+      },
+      dropShadow: {
+        '3xl': '5px 5px 10px rgba(0, 0, 0, 0.25)',
       }
     },
   },
