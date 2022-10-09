@@ -6,6 +6,7 @@ import Main from './pages/Main/Main';
 import Home from './pages/Home/Home';
 import Login from 'pages/Auth/Login';
 import AddInfo from 'pages/Add/AddInfo';
+import SelectPath from 'pages/Add/SelectPath';
 
 function App() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function App() {
       <Route path="/login" element= {<Login/>}></Route>
       <Route path="/home" element= {<Home/>}></Route>
       <Route path="/addInfo" element = {<AddInfo/>}></Route>
+      <Route path="/selectPath" element={<SelectPath />}/>
     </Routes>
     </div>
 
