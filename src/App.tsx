@@ -4,9 +4,11 @@ import './styles/tailwind.css';
 
 import Main from './pages/Main/Main';
 import Home from './pages/Home/Home';
-import Login from 'pages/Auth/Login';
 import AddInfo from 'pages/Add/AddInfo';
 import SelectPath from 'pages/Add/SelectPath';
+import Login from './pages/Auth/Login';
+import Join from './pages/Auth/Join';
+import SetNotice from './pages/Add/SetNotice';
 
 function App() {
   const navigate = useNavigate();
@@ -18,9 +20,11 @@ function App() {
     <Routes>
       <Route path="/" element= {<Main/>}></Route>
       <Route path="/login" element= {<Login/>}></Route>
+      <Route path="/Join" element= {<Join/>}></Route>
       <Route path="/home" element= {<Home/>}></Route>
       <Route path="/addInfo" element = {<AddInfo/>}></Route>
       <Route path="/selectPath" element={<SelectPath />}/>
+      <Route path="/setNotice" element = {<SetNotice/>}></Route>
     </Routes>
     </div>
 
