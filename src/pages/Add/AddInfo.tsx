@@ -63,7 +63,7 @@ function AddInfo() {
         <button
           className=" w-20 h-7 bg-mainGreen rounded-sm text-white drop-shadow-btn"
           onClick={() => {
-            navigate('/home');
+            navigate('/selectPath');
           }}
         >
           경로 선택
