@@ -6,19 +6,19 @@ function Home() {
   const scheduleList = [
     {
       id: 1,
-      title: '학교가는 날~',
+      name: '학교가는 날~',
       date: '9월 8일 12시 30분',
       place: '동국대학교 신공학관',
     },
     {
       id: 2,
-      title: '놀러가는 날',
+      name: '놀러가는 날',
       date: '9월 12일 12시 30분',
       place: '반포 한강공원',
     },
     {
       id: 3,
-      title: '대동제 화끈하게-',
+      name: '대동제 화끈하게-',
       date: '9월 28일 오후 3시 00분',
       place: '동국대학교',
     },
