@@ -6,14 +6,14 @@ export default function Login() {
   return (
     <div className="flex h-screen ">
       <div className="w-full m-auto">
-        <div className = 'text-center mb-4 '>
+        <div className="text-center mb-4 ">
           <h4 className="ml-12 text-left text-2xl">ID</h4>
           <input
             className="w-4/5 h-10 rounded-md text-left placeholder-#e2e0e0 border-2"
             placeholder="  ID를 입력하세요"
           ></input>
         </div>
-        <div className = 'text-center'>
+        <div className="text-center">
           <h4 className="ml-12 text-left text-2xl">PW</h4>
           <input
             className="w-4/5 h-10 rounded-md text-left placeholder-#e2e0e0 border-2"
