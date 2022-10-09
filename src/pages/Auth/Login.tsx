@@ -23,7 +23,7 @@ export default function Login() {
         <div className="text-center">
           <button
             className="my-5 w-1/4 rounded-md text-2xl outline ouutline-offset-2 outline-2 text-mainGreen"
-            onClick={() => navigate('../Home')}
+            onClick={() => navigate('/home')}
           >
             로그인
           </button>
