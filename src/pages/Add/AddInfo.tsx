@@ -53,7 +53,7 @@ function AddInfo() {
       </div>
       <div className="flex justify-between mb-6 text-sm">
         <button
-          className=" w-20 h-7 bg-grey rounded-sm text-white drop-shadow-btn"
+          className=" w-20 h-7 bg-grey rounded-sm text-white drop-shadow-btn transform transition hover:scale-110 duration-100"
           onClick={() => {
             navigate('/home');
           }}
@@ -61,7 +61,7 @@ function AddInfo() {
           취소
         </button>
         <button
-          className=" w-20 h-7 bg-mainGreen rounded-sm text-white drop-shadow-btn"
+          className=" w-20 h-7 bg-mainGreen rounded-sm text-white drop-shadow-btn transform transition hover:scale-110 duration-100"
           onClick={() => {
             navigate('/selectPath');
           }}

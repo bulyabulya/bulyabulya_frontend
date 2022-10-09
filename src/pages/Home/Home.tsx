@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Schedule from './Schedule';
+import ScheduleMenu from './ScheduleMenu';
 
 function Home() {
   const navigate = useNavigate();
+
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const close = () => {
+    setMenuOpen(false);
+  }
+
   const scheduleList = [
     {
       id: 1,
@@ -24,6 +31,7 @@ function Home() {
       place: '동국대학교',
     },
   ];
+
   return (
     <div className="w-full h-full">
       <button className="w-7 h-7 text-grey font-black text-2xl absolute top-8 right-8">
@@ -39,17 +47,21 @@ function Home() {
       </button>
       <div className=" mb-20">
         {scheduleList.map((value, key) => (
-          <Schedule key={key} {...value}></Schedule>
+
+          <Schedule key={key} schedule={value} setMenuOpen={setMenuOpen}></Schedule>
         ))}
       </div>
       <button
-        className=" w-full h-12 fixed bottom-0 left-0 bg-mainGreen text-white font-light"
+        className=" w-full h-12 fixed bottom-0 left-0 bg-mainGreen text-white font-light "
         onClick={() => {
           navigate('/addInfo');
         }}
       >
         일정 추가
       </button>
+      {
+        menuOpen && <ScheduleMenu menuOpen={menuOpen} close={close}/>
+      }
     </div>
   );
 }
