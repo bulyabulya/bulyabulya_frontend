@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Schedule from './Schedule';
 
 function Home() {
+  const navigate = useNavigate();
   const scheduleList = [
     {
       id: 1,
@@ -41,7 +43,7 @@ function Home() {
         <Schedule key={key} {...value}></Schedule>
       ))}
       </div>
-      <button className=' w-full h-12 fixed bottom-0 left-0 bg-mainGreen text-white font-light'>일정 추가</button>
+      <button className=' w-full h-12 fixed bottom-0 left-0 bg-mainGreen text-white font-light' onClick={()=>{navigate("/addInfo")}}>일정 추가</button>
     </div>
   );
 }
