@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import 'react-dropdown/style.css';
+import OptDay from '../../components/selectDay';
 import OptTime from '../../components/selectTime';
 import CheckDay from '../../components/CheckDay';
 import { time } from 'console';
