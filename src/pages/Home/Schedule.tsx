@@ -1,4 +1,3 @@
-
 import React, { useState, Dispatch, SetStateAction } from "react";
 
 interface ScheduleProps {
@@ -10,7 +9,6 @@ interface ScheduleProps {
   };
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
-
 
 function Schedule(props:ScheduleProps) {
   const openMenu = (id:number) => {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './styles/tailwind.css';
-
 import Main from './pages/Main/Main';
 import Home from './pages/Home/Home';
 import AddInfo from 'pages/Add/AddInfo';

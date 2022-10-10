@@ -8,9 +8,9 @@ interface Props {
 
 const CheckBoxDay = (props: Props) => {
   return (
-    <div>
+    <div className = 'flex justify-between'>
       <label htmlFor={props.label}>{props.label}</label>
-      <input
+      <input className = ''
         type="checkbox"
         id={props.label}
         checked={props.isChecked}
