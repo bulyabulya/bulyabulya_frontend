@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'react-dropdown/style.css';
-import OptDay from '../../components/selectDay';
 import OptTime from '../../components/selectTime';
 import CheckDay from '../../components/CheckDay';
 import { time } from 'console';
@@ -22,23 +21,27 @@ export default function SetNotice() {
   };
 
   return (
-    <div className="">
-      <p className = 'text-2xl mb-5'>
-        <span className="text-mainGreen font-bold">{timeInfo.departure}</span>에 출발하면{' '}
-        <span className="text-mainGreen font-bold">{timeInfo.required}</span> 후,{' '}
-        <span className="text-mainGreen font-bold">{timeInfo.arrive}</span>에 도착할 수 있어요!
-      </p>
-      <OptTime />
-      <CheckDay />
+    <div className="h-100 flex flex-col justify-between">
       <div>
+        <p>
+          <span className="text-mainGreen font-bold">{timeInfo.departure}</span>에 출발하면{' '}
+          <span className="text-mainGreen font-bold">{timeInfo.required}</span> 후,{' '}
+        </p>
+        <p className = 'mb-6'>
+          <span className="text-mainGreen font-bold">{timeInfo.arrive}</span>에 도착할 수 있어요!
+        </p>
+        <OptTime />
+        <CheckDay />
+      </div>
+      <div className="flex justify-between mb-6 text-sm">
         <button
-          className="float-left my-5 w-1/4 rounded-md text-2xl outline ouutline-offset-2 outline-2 bg-grey text-white"
+          className="w-20 h-7 bg-grey rounded-sm text-white drop-shadow-btn transfrom transition hover:scale-110 duration-100"
           onClick={() => navigate('/selectPath')}
         >
           이전
         </button>
         <button
-          className="float-right my-5 w-1/4 rounded-md text-2xl outline ouutline-offset-2 outline-2 bg-mainGreen text-white"
+          className="w-20 h-7 bg-mainGreen rounded-sm text-white drop-shadow-btn transform transition hover:scale-110 duration-100"
           onClick={() => navigate('/nogo!!')}
         >
           완료

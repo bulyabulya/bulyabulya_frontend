@@ -9,7 +9,7 @@ function Home() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const close = () => {
     setMenuOpen(false);
-  }
+  };
 
   const scheduleList = [
     {
@@ -47,7 +47,6 @@ function Home() {
       </button>
       <div className=" mb-20">
         {scheduleList.map((value, key) => (
-
           <Schedule key={key} schedule={value} setMenuOpen={setMenuOpen}></Schedule>
         ))}
       </div>
@@ -59,9 +58,7 @@ function Home() {
       >
         일정 추가
       </button>
-      {
-        menuOpen && <ScheduleMenu menuOpen={menuOpen} close={close}/>
-      }
+      {menuOpen && <ScheduleMenu menuOpen={menuOpen} close={close} />}
     </div>
   );
 }
