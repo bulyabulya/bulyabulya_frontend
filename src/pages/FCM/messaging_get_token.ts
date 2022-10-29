@@ -15,22 +15,23 @@ function requestPermission() {
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       console.log('Notification permission granted.');
-      const app = firebase.initializeApp(firebaseConfig);
+      const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-      const messaging = firebase.messaging();
+      const messaging = firebaseApp.messaging();
 
-      messaging.getToken({
-        vapidKey: 'BHLgUdl5aBrO5QABu5OjrMbVt93sCrwoGMjoWCqL4gss8Ii8V9lx_JZK5KhGjPNqLfoxXbZ6DCNAdsHiGylnQxo',
-      }).then((currentToken) => {
-        if (currentToken) {
-          console.log('currentToken: ', currentToken);
-        } else {
-          console.log('Can not get token');
-        }
-      });
+      messaging
+        .getToken({
+          vapidKey: 'BHLgUdl5aBrO5QABu5OjrMbVt93sCrwoGMjoWCqL4gss8Ii8V9lx_JZK5KhGjPNqLfoxXbZ6DCNAdsHiGylnQxo',
+        })
+        .then((currentToken) => {
+          if (currentToken) {
+            console.log('currentToken: ', currentToken);
+          } else {
+            console.log('Can not get token');
+          }
+        });
     } else {
       console.log('Do not have permission!');
-    
     }
   });
 }
