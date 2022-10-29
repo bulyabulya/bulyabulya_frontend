@@ -4,25 +4,23 @@ import { Link, useNavigate } from 'react-router-dom';
 function Main() {
   const navigate = useNavigate();
   return (
-    <div className = 'flex h-screen'>
-      <div className="m-auto text-center text-6xl">
+    <div className="flex h-100">
+      <div className="my-auto text-center text-6xl">
         <img className="mx-auto w-2/3" alt="부랴부랴" src="/assets/character.png" />
-        <div className="text-4xl font-bold text-mainGreen">
+        <div className=" mb-5 text-4xl font-bold text-mainGreen">
           부랴부랴
           <br />
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-around w-full h-32">
           <button
-            className="w-1/2 rounded-md text-2xl outline ouutline-offset-2 outline-2 text-mainGreen"
-            onClick={() => navigate('/Login')}
+            className=" w-40 h-8 rounded-md text-xl outline outline-1 text-mainGreen"
+            onClick={() => navigate('/login')}
           >
             로그인
           </button>
-        </div>
-        <div className = 'mb-20'>
           <button
-            className="w-1/2 rounded-md text-2xl outline outline-offset-2 outline-2 text-mainGreen"
-            onClick={() => navigate('/Join')}
+            className=" w-40 h-8 rounded-md text-xl outline outline-1 text-mainGreen"
+            onClick={() => navigate('/join')}
           >
             회원가입
           </button>
