@@ -19,7 +19,7 @@ function App() {
     <Routes>
       <Route path="/" element= {<Main/>}></Route>
       <Route path="/login" element= {<Login/>}></Route>
-      <Route path="/Join" element= {<Join/>}></Route>
+      <Route path="/join" element= {<Join/>}></Route>
       <Route path="/home" element= {<Home/>}></Route>
       <Route path="/addInfo" element = {<AddInfo/>}></Route>
       <Route path="/selectPath" element={<SelectPath />}/>
