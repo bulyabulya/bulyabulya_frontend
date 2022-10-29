@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getMessaging, getToken} from 'firebase/messaging';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/messaging';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCqpz7IPD6-NJvWfEli9EGhNvU4AUlQHe0',
@@ -15,10 +15,11 @@ function requestPermission() {
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       console.log('Notification permission granted.');
-      const app = initializeApp(firebaseConfig);
+      const app = firebase.initializeApp(firebaseConfig);
 
-      const messaging = getMessaging(app);
-      getToken(messaging, {
+      const messaging = firebase.messaging();
+
+      messaging.getToken({
         vapidKey: 'BHLgUdl5aBrO5QABu5OjrMbVt93sCrwoGMjoWCqL4gss8Ii8V9lx_JZK5KhGjPNqLfoxXbZ6DCNAdsHiGylnQxo',
       }).then((currentToken) => {
         if (currentToken) {
@@ -28,7 +29,8 @@ function requestPermission() {
         }
       });
     } else {
-      console.log("Do not have permission!");
+      console.log('Do not have permission!');
+    
     }
   });
 }
