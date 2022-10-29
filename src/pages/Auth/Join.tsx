@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+
+
 export default function Join() {
   const navigate = useNavigate();
   return (
@@ -19,7 +21,7 @@ export default function Join() {
             className="w-4/5 h-10 rounded-md text-left placeholder-#e2e0e0 border-2"
             placeholder="  Password를 입력하세요"
           ></input>
-        </div>
+        </div>x
         <div className="text-center">
           <button
             className="my-5 w-1/4 rounded-md text-2xl outline ouutline-offset-2 outline-2 text-mainGreen"
