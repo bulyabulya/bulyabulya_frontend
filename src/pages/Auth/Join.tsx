@@ -7,6 +7,8 @@ interface User {
   password: string;
 }
 
+
+
 export default function Join() {
   const navigate = useNavigate();
   const [user, setUser] = useState<User>({
