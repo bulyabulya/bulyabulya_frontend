@@ -10,6 +10,7 @@ function AddInfo() {
   const timezoneDate = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 16);
   const [scheduleName, setScheduleName] = useState<string>('');
   const [arrivalTime, setArrivalTime] = useState<string>(timezoneDate);
+  const googleApiKey: string = process.env.REACT_APP_GOOGLE_API_KEY || '';
 
   const onLoadOrigin = (autocomplete: any) => {
     setAutocompleteOrigin(autocomplete);
@@ -36,11 +37,8 @@ function AddInfo() {
           }}
         ></input>
         <p className=" text-base font-medium mb-2 mt-3">출발지</p>
-        <LoadScript googleMapsApiKey="~~~~~~~~~~~~~" libraries={['places']}>
-          <GoogleMap
-            id="searchbox-example"
-            mapContainerStyle={{ width: '100%', height: '40px' }}
-          >
+        <LoadScript googleMapsApiKey={googleApiKey} libraries={['places']}>
+          <GoogleMap id="searchbox-example" mapContainerStyle={{ width: '100%', height: '40px' }}>
             <Autocomplete onLoad={onLoadOrigin} onPlaceChanged={onPlaceChangedOrigin}>
               <input
                 type="text"
@@ -53,10 +51,7 @@ function AddInfo() {
 
         <p className=" text-base font-medium mb-2 mt-3">도착지</p>
         <LoadScript googleMapsApiKey="~~~~~~~~~~~~~~" libraries={['places']}>
-          <GoogleMap
-            id="searchbox-example"
-            mapContainerStyle={{ width: '100%', height: '40px' }}
-          >
+          <GoogleMap id="searchbox-example" mapContainerStyle={{ width: '100%', height: '40px' }}>
             <Autocomplete onLoad={onLoadDestination} onPlaceChanged={onPlaceChangedDestination}>
               <input
                 type="text"
