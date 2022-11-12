@@ -35,26 +35,26 @@ export default function CheckDay() {
 
   return (
     <div>
-      <p className="text-base font-medium mb-2">반복</p>
-      <div className="mb-2">
+      <h4 className="mb-5 text-left text-3xl">반복</h4>
+      <div className="mb-1 text-left text-2xl h-10 ">
         <CheckBoxDay handleChange={handleChangeSun} isChecked={isCheckedSun} label="일요일" />
       </div>
-      <div className="mb-2">
+      <div className="mb-1 text-left text-2xl h-10">
         <CheckBoxDay handleChange={handleChangeMon} isChecked={isCheckedMon} label="월요일" />
       </div>
-      <div className="mb-2">
+      <div className="mb-1 text-left text-2xl h-10 ">
         <CheckBoxDay handleChange={handleChangeTue} isChecked={isCheckedTue} label="화요일" />
       </div>
-      <div className="mb-2">
+      <div className="mb-1 text-left text-2xl h-10">
         <CheckBoxDay handleChange={handleChangeWed} isChecked={isCheckedWed} label="수요일" />
       </div>
-      <div className="mb-2">
+      <div className="mb-1 text-left text-2xl h-10">
         <CheckBoxDay handleChange={handleChangeThu} isChecked={isCheckedThu} label="목요일" />
       </div>
-      <div className="mb-2">
+      <div className="mb-1 text-left text-2xl h-10">
         <CheckBoxDay handleChange={handleChangeFri} isChecked={isCheckedFri} label="금요일" />
       </div>
-      <div className="mb-2">
+      <div className="mb-1 text-left text-2xl h-10">
         <CheckBoxDay handleChange={handleChangeSat} isChecked={isCheckedSat} label="토요일" />
       </div>
     </div>

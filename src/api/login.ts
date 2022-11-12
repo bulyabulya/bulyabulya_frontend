@@ -4,7 +4,9 @@ import { useCookies } from 'react-cookie';
 export interface loginRequestBody {
   email: string;
   password: string;
+  registrationToken: string; // = FCM
 }
+
 export const login = async (loginParams: loginRequestBody, setCookie: any) => {
   console.log('aa');
   axios
@@ -18,3 +20,4 @@ export const login = async (loginParams: loginRequestBody, setCookie: any) => {
       alert('로그인에 실패하였습니다.');
     });
 };
+
