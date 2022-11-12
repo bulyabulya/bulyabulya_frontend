@@ -50,7 +50,7 @@ function AddInfo() {
         </LoadScript>
 
         <p className=" text-base font-medium mb-2 mt-3">도착지</p>
-        <LoadScript googleMapsApiKey="~~~~~~~~~~~~~~" libraries={['places']}>
+        <LoadScript googleMapsApiKey={googleApiKey} libraries={['places']}>
           <GoogleMap id="searchbox-example" mapContainerStyle={{ width: '100%', height: '40px' }}>
             <Autocomplete onLoad={onLoadDestination} onPlaceChanged={onPlaceChangedDestination}>
               <input
