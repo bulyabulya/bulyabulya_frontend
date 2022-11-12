@@ -11,22 +11,23 @@ interface User {
 
 export default function Login() {
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['accessToken']);
+  const [accessToken, setAccessToken] = useCookies(['accessToken']);
+  const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
   const [user, setUser] = useState<User>({
     email: '',
     password: '',
     registrationToken: localStorage.getItem("registrationToken")!,
-  })
+  });
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({...user, email: e.target.value})
-  }
+    setUser({ ...user, email: e.target.value });
+  };
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, password: e.target.value})
-  }
+    setUser({ ...user, password: e.target.value });
+  };
 
-  const handleLogin = () =>{
-    login(user, setCookie);
-  }
+  const handleLogin = () => {
+    login(user, setAccessToken, setRefreshToken);
+  };
   return (
     <div className="flex h-100 ">
       <div className="w-full m-auto">

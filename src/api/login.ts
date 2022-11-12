@@ -1,3 +1,4 @@
+import React, {SetStateAction, Dispatch} from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
@@ -7,13 +8,14 @@ export interface loginRequestBody {
   registrationToken: string; // = FCM
 }
 
-export const login = async (loginParams: loginRequestBody, setCookie: any) => {
+export const login = async (loginParams: loginRequestBody, setAccessToken: any, setRefreshToken: any) => {
   console.log('aa');
   axios
     .post('https://web.api.bulyabulya.com/auth/login', loginParams)
     .then((response) => {
-        setCookie('accessToken', response.data.data.accessToken);
-        window.location.href = "/home";
+      setAccessToken(response.data.data.accessToken);
+      setRefreshToken(response.data.data.refreshToken);
+      window.location.href = '/home';
     })
     .catch((error) => {
       console.log(error);

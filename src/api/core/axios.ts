@@ -16,13 +16,13 @@ const axiosWrap = async ({
   params?: object;
   body?: object;
 }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+  const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
   try {
     const config: AxiosRequestConfig = {
       baseURL: process.env.REACT_APP_WEB_API_URL,
       params,
       headers: {
-        authorization: cookies ? `Bearer ${cookies}` : '',
+        authorization: accessToken ? `Bearer ${accessToken}` : '',
       },
     };
     const { data } =

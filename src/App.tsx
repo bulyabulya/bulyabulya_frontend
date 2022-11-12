@@ -9,6 +9,7 @@ import Login from './pages/Auth/Login';
 import Join from './pages/Auth/Join';
 import SetNotice from './pages/Add/SetNotice';
 import "./pages/FCM/messaging_get_token";
+import TestPage from 'pages/TestPage';
 
 function App() {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ function App() {
       <Route path="/Join" element= {<Join/>}></Route>
       <Route path="/home" element= {<Home/>}></Route>
       <Route path="/SetNotice" element = {<SetNotice/>}></Route>
+      <Route path="/test" element = {<TestPage/>}></Route>
     </Routes>
     </div>
 
