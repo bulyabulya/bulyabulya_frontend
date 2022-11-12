@@ -40,17 +40,17 @@ const OptTime: React.FC = (): JSX.Element => {
   return (
     <div>
       <div className="announcement">
-        <p className="text-base font-medium mb-2">
+        <div className="mb-5 text-left text-3xl">
           {selectTime ? `${selectTime} 전에 알려드릴게요!` : '출발시간 알림'}
-        </p>
+        </div>
       </div>
-      <div className="">
+      <div className="w-full text-left mb-5">
         <button
           className="{showDropDown ? 'active' : undefined} w-full"
           onClick={(): void => toggleDropDown()}
           onBlur={(e: React.FocusEvent<HTMLButtonElement>): void => dismissHandler(e)}
         >
-          <div className="text-left w-full text-sm font-light border border-grey rounded-sm p-1 mb-5 focus:outline-none">
+          <div className="text-left text-2xl h-10 rounded-md text-lightblack border-lightblack border-2">
             {selectTime ? selectTime : '시간 선택'}{' '}
           </div>
           {showDropDown && (

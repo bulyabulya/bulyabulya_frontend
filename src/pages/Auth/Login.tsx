@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 
-
 interface User {
   email: string;
   password: string;
+  registrationToken: string;
 }
 
 export default function Login() {
@@ -15,6 +15,7 @@ export default function Login() {
   const [user, setUser] = useState<User>({
     email: '',
     password: '',
+    registrationToken: localStorage.getItem("registrationToken")!,
   })
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({...user, email: e.target.value})

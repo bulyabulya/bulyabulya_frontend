@@ -26,6 +26,9 @@ function App() {
       <Route path="/addInfo" element = {<AddInfo/>}></Route>
       <Route path="/selectPath" element={<SelectPath />}/>
       <Route path="/setNotice" element = {<SetNotice/>}></Route>
+      <Route path="/Join" element= {<Join/>}></Route>
+      <Route path="/home" element= {<Home/>}></Route>
+      <Route path="/SetNotice" element = {<SetNotice/>}></Route>
     </Routes>
     </div>
 
