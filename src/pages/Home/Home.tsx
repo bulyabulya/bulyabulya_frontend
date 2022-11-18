@@ -10,51 +10,51 @@ function Home() {
   const close = () => {
     setMenuOpen(false);
   };
-
   const scheduleList = [
     {
-      title: '집',
+      title: '아들 보러 가는 길',
       origin: '테스트',
       originLatitude: '37.01',
       originLongitude: '37.02',
-      destination: '도착지1',
+      destination: '종석의 삐까뻔쩍 집',
       destinationLatitude: '38.01',
       destinationLongitude: '38.02',
-      departureTime: '1665320694',
-      arrivalTime: '312321321321412',
+      departureTime: '1668733440',  // (2022-11-18 10:04)
+      arrivalTime: '1668857400', // (2022-11-19 20:30)
       beforeAlarm: 30,
       path: '123123123',
       type: 'example',
     },
     {
-      title: '학교',
+      title: '파주 귀성길',
       origin: '테스트',
       originLatitude: '37.01',
       originLongitude: '37.02',
-      destination: '도착지2',
+      destination: '정제의 머나먼 허름 파주집',
       destinationLatitude: '38.01',
       destinationLongitude: '38.02',
-      departureTime: '1665320694',
-      arrivalTime: '312321321321412',
+      departureTime: '1668745620',  // (2022-11-18 13:27)
+      arrivalTime: '1668771000', // (2022-11-18 20:30)
       beforeAlarm: 30,
       path: '123123123',
       type: 'example',
     },
     {
-      title: '여행',
+      title: '행복한 하교',
       origin: '테스트',
       originLatitude: '37.01',
       originLongitude: '37.02',
-      destination: '도착지3',
+      destination: '정우의 엎어지면 코 닿는 집',
       destinationLatitude: '38.01',
       destinationLongitude: '38.02',
-      departureTime: '1665320694',
-      arrivalTime: '312321321321412',
+      departureTime: '1668819840',  // (2022-11-19 10:04)
+      arrivalTime: '1669177620',// (2022-11-23 13:27)
       beforeAlarm: 30,
       path: '123123123',
       type: 'example',
     },
   ];
+
 
   return (
     <div className="w-full h-full">

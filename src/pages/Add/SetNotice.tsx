@@ -4,10 +4,15 @@ import OptDay from '../../components/selectDay';
 import OptTime from '../../components/selectTime';
 import CheckDay from '../../components/CheckDay';
 import { time } from 'console';
+import getDepart from '../../components/getDepart';
+import getDuration from 'components/getDuration';
+import getArrival from 'components/getArrival';
+import getDiffDay from 'components/getDiffDay';
 
 export default function SetNotice() {
   const navigate = useNavigate();
 
+  /*
   type Timetype = {
     departure: string;
     required: string;
@@ -19,16 +24,17 @@ export default function SetNotice() {
     required: '60분',
     arrive: '오후 3:00',
   };
+  */
 
   return (
     <div className="h-100 flex flex-col justify-between">
       <div>
         <p>
-          <span className="text-mainGreen font-bold">{timeInfo.departure}</span>에 출발하면{' '}
-          <span className="text-mainGreen font-bold">{timeInfo.required}</span> 후,{' '}
+          <span className="text-mainGreen font-bold">{getDepart('1665320694')}</span>에 출발하면{' '}
+          <span className="text-mainGreen font-bold">{getDuration('1665320694','1665325335')}</span> 후,{' '}
         </p>
         <p className = 'mb-6'>
-          <span className="text-mainGreen font-bold">{timeInfo.arrive}</span>에 도착할 수 있어요!
+          <span className="text-mainGreen font-bold">{getArrival('1665325335')}</span>에 도착할 수 있어요!
         </p>
         <OptTime />
         <CheckDay />
