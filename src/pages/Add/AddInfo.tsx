@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Autocomplete, GoogleMap, LoadScript } from '@react-google-maps/api';
-import getDepart from 'components/getDepart';
 
 function AddInfo() {
   const navigate = useNavigate();
@@ -72,10 +71,6 @@ function AddInfo() {
           min={timezoneDate}
           onChange={(event) => {
             setArrivalTime(event.target.value);
-            // InfoStamp : API 전달(경로탐색-arrivalTime(string)하기 위한 타임스탬프 생성
-            const tmpStamp = new Date(event.target.value);
-            const InfoStamp = tmpStamp.getTime()/1000;
-            //console.log(InfoStamp);
           }}
         ></input>
       </div>
