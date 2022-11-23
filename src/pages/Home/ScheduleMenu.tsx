@@ -15,7 +15,7 @@ function ScheduleMenu(props: scheduleMenuType) {
     <div className=" w-screen h-screen fixed left-0 top-0 bg-black/30 z-50" onClick={closeModal}>
       <div className=" w-full h-48 fixed bottom-0 p-5 bg-white z-100 opacity-100">
         <div className=' pb-4 border-b border-grey border-dashed'>
-          <h1 className=' mb-1 font-normal'>대동제 화끈하게-</h1>
+          <h1 className=' mb-1 font-normal'>대동제 화끈!</h1>
           <p className=' text-lightBlack text-sm font-light'>9월 28일 오후 3시 00분</p>
           <p className=' text-lightBlack text-sm font-light'>홍대입구역 -&gt; 동국대학교</p>
         </div>

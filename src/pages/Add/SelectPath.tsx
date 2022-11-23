@@ -7,22 +7,49 @@ function SelectPath() {
 
   const pathList = [
     {
-      id: 1,
-      time: 30,
-      detail: '버스(40분)-지하철(60분)',
-      note: '최단시간',
+      id: 14,
+      origin: "테스트",
+      originLatitude: "37.01",
+      originLongitude: "37.02",
+      destination: "도착지",
+      destinationLatitude: "38.01",
+      destinationLongitude: "38.02",
+      departureTime: "1970-01-01T00:00:02.000Z",
+      arrivalTime: "1970-01-01T00:00:02.000Z",
+      beforeAlarm: 30,
+      alarmTime: "2018-05-24",
+      path: "123123123",
+      type: "example"
     },
     {
-      id: 2,
-      time: 50,
-      detail: '버스(40분)-지하철(60분)',
-      note: '최소환승',
+      id: 15,
+      origin: "테스트",
+      originLatitude: "37.01",
+      originLongitude: "37.02",
+      destination: "도착지",
+      destinationLatitude: "38.01",
+      destinationLongitude: "38.02",
+      departureTime: "1970-01-01T00:00:02.000Z",
+      arrivalTime: "1970-01-01T00:00:02.000Z",
+      beforeAlarm: 30,
+      alarmTime: "2018-05-24",
+      path: "123123123",
+      type: "example"
     },
     {
-      id: 3,
-      time: 70,
-      detail: '버스(40분)-지하철(60분)',
-      note: '',
+      id: 16,
+      origin: "테스트",
+      originLatitude: "37.01",
+      originLongitude: "37.02",
+      destination: "도착지",
+      destinationLatitude: "38.01",
+      destinationLongitude: "38.02",
+      departureTime: "1970-01-01T00:00:02.000Z",
+      arrivalTime: "1970-01-01T00:00:02.000Z",
+      beforeAlarm: 30,
+      alarmTime: "2018-05-24",
+      path: "123123123",
+      type: "example"
     },
   ];
 
@@ -39,8 +66,8 @@ function SelectPath() {
     <div>
       <h1 className=" text-xl font-medium mb-6">마음에 드는 경로를 선택해주세요!</h1>
       <div>
-        {pathList.map((vlaue, key) => (
-          <Path key={key} {...vlaue}></Path>
+        {pathList.map((value, key) => (
+          <Path key={key} {...value}></Path>
         ))}
       </div>
 

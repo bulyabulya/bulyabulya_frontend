@@ -67,6 +67,7 @@ function AddInfo() {
           placeholder="도착시간"
           type="datetime-local"
           value={arrivalTime}
+          
           min={timezoneDate}
           onChange={(event) => {
             setArrivalTime(event.target.value);
