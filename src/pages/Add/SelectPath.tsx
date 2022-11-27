@@ -1,73 +1,45 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import Path from './Path';
+
 
 function SelectPath() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const recommendRoute = location.state.recommendRoute;
+  const [selectedPath, setSelectdPath] = useState<number>(-1);
+  const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
+  useEffect(() => {
+    if (!accessToken.accessToken) {
+      navigate('/');
+    }
+    if (recommendRoute === undefined) {
+      navigate('/addInfo');
+    }
+  }, []);
 
-  const pathList = [
-    {
-      id: 14,
-      origin: "테스트",
-      originLatitude: "37.01",
-      originLongitude: "37.02",
-      destination: "도착지",
-      destinationLatitude: "38.01",
-      destinationLongitude: "38.02",
-      departureTime: "1970-01-01T00:00:02.000Z",
-      arrivalTime: "1970-01-01T00:00:02.000Z",
-      beforeAlarm: 30,
-      alarmTime: "2018-05-24",
-      path: "123123123",
-      type: "example"
-    },
-    {
-      id: 15,
-      origin: "테스트",
-      originLatitude: "37.01",
-      originLongitude: "37.02",
-      destination: "도착지",
-      destinationLatitude: "38.01",
-      destinationLongitude: "38.02",
-      departureTime: "1970-01-01T00:00:02.000Z",
-      arrivalTime: "1970-01-01T00:00:02.000Z",
-      beforeAlarm: 30,
-      alarmTime: "2018-05-24",
-      path: "123123123",
-      type: "example"
-    },
-    {
-      id: 16,
-      origin: "테스트",
-      originLatitude: "37.01",
-      originLongitude: "37.02",
-      destination: "도착지",
-      destinationLatitude: "38.01",
-      destinationLongitude: "38.02",
-      departureTime: "1970-01-01T00:00:02.000Z",
-      arrivalTime: "1970-01-01T00:00:02.000Z",
-      beforeAlarm: 30,
-      alarmTime: "2018-05-24",
-      path: "123123123",
-      type: "example"
-    },
-  ];
-
+  const handleSelect = (key:number) => {
+    setSelectdPath(key);
+  }
   const beforePage = () => {
-    // 입력했던 거 같이 렌더링대야함
     navigate('/addInfo');
   };
   const nextPage = () => {
-    // 자료 입력 (저장) 같이
-    navigate('/setNotice');
+    navigate('/setNotice', {state: recommendRoute[selectedPath]});
+    
   };
 
   return (
     <div>
       <h1 className=" text-xl font-medium mb-6">마음에 드는 경로를 선택해주세요!</h1>
       <div>
-        {pathList.map((value, key) => (
-          <Path key={key} {...value}></Path>
+        {recommendRoute.map((value: any, key: any) => (
+          <div key={key} onClick={()=>{handleSelect(key)}}>
+            <Path {...value}></Path>
+          </div>
         ))}
       </div>
 

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import Schedule from './Schedule';
 import ScheduleMenu from './ScheduleMenu';
 
 function Home() {
   const navigate = useNavigate();
+  const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
+
 
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const close = () => {
@@ -55,6 +58,11 @@ function Home() {
     },
   ];
 
+  useEffect(() => {
+    if (!accessToken.accessToken) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <div className="w-full h-full">

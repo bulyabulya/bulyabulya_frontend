@@ -13,8 +13,8 @@ export const login = async (loginParams: loginRequestBody, setAccessToken: any, 
   axios
     .post('https://web.api.bulyabulya.com/auth/login', loginParams)
     .then((response) => {
-      setAccessToken(response.data.data.accessToken);
-      setRefreshToken(response.data.data.refreshToken);
+      setAccessToken('accessToken',response.data.data.accessToken);
+      setRefreshToken('refreshToken',response.data.data.refreshToken);
       window.location.href = '/home';
     })
     .catch((error) => {
