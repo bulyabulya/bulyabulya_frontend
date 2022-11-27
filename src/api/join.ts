@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { POST } from './core/axios';
 
 export interface joinRequestBody {
   email: string;

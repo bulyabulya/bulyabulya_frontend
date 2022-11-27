@@ -14,7 +14,7 @@ module.exports = {
         subGreen: '#4ed260',
         lightGrey: '#f9f9f9',
         grey: '#bbbbbb',
-        darkGrey: '#bbbbbb',
+        darkGrey: '#999999',
         lightBlack: '#333333',
       },
       dropShadow: {

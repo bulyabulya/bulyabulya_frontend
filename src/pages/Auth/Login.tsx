@@ -28,6 +28,12 @@ export default function Login() {
   const handleLogin = () => {
     login(user, setAccessToken, setRefreshToken);
   };
+  
+  useEffect(() => {
+    if (accessToken.accessToken) {
+      navigate('/home');
+    }
+  }, []);
   return (
     <div className="flex h-100 ">
       <div className="w-full m-auto">
