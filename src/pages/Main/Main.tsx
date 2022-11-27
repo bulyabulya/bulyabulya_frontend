@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Main() {
   const navigate = useNavigate();
+
   return (
     <div className="flex h-100">
       <div className="my-auto text-center text-6xl">

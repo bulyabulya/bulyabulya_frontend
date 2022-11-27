@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import OptDay from '../../components/selectDay';
-import OptTime from '../../components/optTime';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SelectTime from '../../components/SelectTime';
-import CheckDay from '../../components/CheckDay';
-import { time } from 'console';
 import getDepart from '../../components/getDepart';
-import getDuration from 'components/getDuration';
 import getArrival from 'components/getArrival';
-import getDiffDay from 'components/getDiffDay';
 import axios from 'axios';
 import { ScheduleInformation } from 'store/atom';
-import { constSelector, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useCookies } from 'react-cookie';
 
 export default function SetNotice() {
@@ -28,9 +22,6 @@ export default function SetNotice() {
       navigate('/');
     }
   }, []);
-  const handleSelectTime = () => {
-    setSelectTimeOpen(!selectTimeOpen);
-  };
   const next = async () => {
     try {
       const response = await axios.post(

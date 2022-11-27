@@ -1,6 +1,5 @@
-// 타임스탬프 -> '월 일 시 분' 변환
-  const getDepart = (time: string) => {
-    const date = new Date(Number(time)*1000);
+const getDate = (time: string) => {
+    const date = new Date(time);
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const hours:string = ('0' + date.getHours()).slice(-2);
@@ -11,4 +10,4 @@
     return month+'월 '+day+'일 '+isAm+' '+hour+'시 '+minutes+'분';
   };
 
-  export default getDepart;
+  export default getDate;

@@ -1,26 +1,57 @@
-import React from 'react';
+import axios from 'axios';
+import getDate from 'components/getDate';
+import React, { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 interface scheduleMenuType {
-  menuOpen: boolean;
+  id: number;
+  title: string;
+  origin: string;
+  destination: string;
+  time: string;
   close: () => void;
 }
 
 function ScheduleMenu(props: scheduleMenuType) {
+  const navigate = useNavigate();
+  const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
   const closeModal = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       props.close();
     }
   };
+  const handleClickDetail = () => {
+    navigate(`/detail/${props.id}`);
+  }
+  const handleDelete = async() => {
+    try {
+      const response = await axios.delete(`${process.env.REACT_APP_WEB_API_URL}/schedule/${props.id}`, {
+        headers: {
+          authorization: accessToken ? `Bearer ${accessToken.accessToken}` : '',
+        },
+      });
+      console.log(response);
+      props.close();
+      location.reload();
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    console.log(props)
+  }, [props.id]);
   return (
     <div className=" w-screen h-screen fixed left-0 top-0 bg-black/30 z-50" onClick={closeModal}>
       <div className=" w-full h-48 fixed bottom-0 p-5 bg-white z-100 opacity-100">
         <div className=' pb-4 border-b border-grey border-dashed'>
-          <h1 className=' mb-1 font-normal'>대동제 화끈!</h1>
-          <p className=' text-lightBlack text-sm font-light'>9월 28일 오후 3시 00분</p>
-          <p className=' text-lightBlack text-sm font-light'>홍대입구역 -&gt; 동국대학교</p>
+          <h1 className=' mb-1 font-normal'>{props.title}</h1>
+          <p className=' text-lightBlack text-sm font-light'>{getDate(props.time)}</p>
+          <p className=' text-lightBlack text-sm font-light'>{props.origin} -&gt; {props.destination}</p>
         </div>
         <div className='h-1/3 mt-4'>
-          <button className=' flex w-full text-sm font-light mb-2'>
+          <button className=' flex w-full text-sm font-light mb-2' onClick={handleClickDetail}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -32,7 +63,7 @@ function ScheduleMenu(props: scheduleMenuType) {
             </svg>
             자세히 보기
           </button>
-          <button className=' flex w-full text-sm font-light'>
+          <button className=' flex w-full text-sm font-light' onClick={handleDelete}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

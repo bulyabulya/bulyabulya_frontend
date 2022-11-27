@@ -1,67 +1,63 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import Schedule from './Schedule';
 import ScheduleMenu from './ScheduleMenu';
 
+interface schedule {
+  id: number;
+  userId: number;
+  title: string;
+  alarmTime: string;
+  arrivalTime: string;
+  beforeAlarm: number;
+  departureTime: string;
+  destination: string;
+  destinationLatitude: string;
+  destinationLongitude: string;
+  origin: string;
+  originLatitude: string;
+  originLongitude: string;
+  isQueued: number;
+}
+
 function Home() {
   const navigate = useNavigate();
   const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
-
-
+  const [scheduleList, setScheduleList] = useState<schedule[]>([]);
+  const [menuNumber, setMenuNumber] = useState<number>(-1);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const close = () => {
-    setMenuOpen(false);
+    setMenuNumber(-1);
   };
-  const scheduleList = [
-    {
-      title: '아들 보러 가는 길',
-      origin: '테스트',
-      originLatitude: '37.01',
-      originLongitude: '37.02',
-      destination: '종석의 삐까뻔쩍 집',
-      destinationLatitude: '38.01',
-      destinationLongitude: '38.02',
-      departureTime: '1668733440',  // (2022-11-18 10:04)
-      arrivalTime: '1668857400', // (2022-11-19 20:30)
-      beforeAlarm: 30,
-      path: '123123123',
-      type: 'example',
-    },
-    {
-      title: '파주 귀성길',
-      origin: '테스트',
-      originLatitude: '37.01',
-      originLongitude: '37.02',
-      destination: '정제의 머나먼 허름 파주집',
-      destinationLatitude: '38.01',
-      destinationLongitude: '38.02',
-      departureTime: '1668745620',  // (2022-11-18 13:27)
-      arrivalTime: '1668771000', // (2022-11-18 20:30)
-      beforeAlarm: 30,
-      path: '123123123',
-      type: 'example',
-    },
-    {
-      title: '행복한 하교',
-      origin: '테스트',
-      originLatitude: '37.01',
-      originLongitude: '37.02',
-      destination: '정우의 엎어지면 코 닿는 집',
-      destinationLatitude: '38.01',
-      destinationLongitude: '38.02',
-      departureTime: '1668819840',  // (2022-11-19 10:04)
-      arrivalTime: '1669177620',// (2022-11-23 13:27)
-      beforeAlarm: 30,
-      path: '123123123',
-      type: 'example',
-    },
-  ];
 
+  const getScheduleList = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_WEB_API_URL}/schedule/list`, {
+        headers: {
+          authorization: accessToken ? `Bearer ${accessToken.accessToken}` : '',
+        },
+      });
+      setScheduleList(
+        [...response.data.data.scheduleList].sort((a, b) => +new Date(a.departureTime) - +new Date(b.departureTime))
+      );
+
+      console.log(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleClickSchedule = (key: number) => {
+    setMenuNumber(key);
+    console.log(key);
+  };
   useEffect(() => {
     if (!accessToken.accessToken) {
       navigate('/');
     }
+    getScheduleList();
+    console.log(scheduleList);
   }, []);
 
   return (
@@ -79,7 +75,14 @@ function Home() {
       </button>
       <div className=" mb-20">
         {scheduleList.map((value, key) => (
-          <Schedule key={key} schedule={value} setMenuOpen={setMenuOpen}></Schedule>
+          <div
+            key={key}
+            onClick={() => {
+              handleClickSchedule(key);
+            }}
+          >
+            <Schedule schedule={value}></Schedule>
+          </div>
         ))}
       </div>
       <button
@@ -90,7 +93,17 @@ function Home() {
       >
         일정 추가
       </button>
-      {menuOpen && <ScheduleMenu menuOpen={menuOpen} close={close} />}
+      {/* {menuOpen && <ScheduleMenu menuOpen={menuOpen} close={close} />} */}
+      {menuNumber !== -1 && (
+        <ScheduleMenu
+          id={scheduleList[menuNumber].id}
+          title={scheduleList[menuNumber].title}
+          origin={scheduleList[menuNumber].origin}
+          destination={scheduleList[menuNumber].destination}
+          time={scheduleList[menuNumber].arrivalTime}
+          close={close}
+        />
+      )}
     </div>
   );
 }
