@@ -1,54 +1,126 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import OptDay from '../../components/selectDay';
-import OptTime from '../../components/selectTime';
+import OptTime from '../../components/optTime';
+import SelectTime from '../../components/SelectTime';
 import CheckDay from '../../components/CheckDay';
 import { time } from 'console';
 import getDepart from '../../components/getDepart';
 import getDuration from 'components/getDuration';
 import getArrival from 'components/getArrival';
 import getDiffDay from 'components/getDiffDay';
+import axios from 'axios';
+import { ScheduleInformation } from 'store/atom';
+import { constSelector, useRecoilValue } from 'recoil';
+import { useCookies } from 'react-cookie';
 
 export default function SetNotice() {
+  const location = useLocation();
+  const recommendRoute = location.state;
+  const [selectTimeOpen, setSelectTimeOpen] = useState<boolean>(false);
+  const [selectedTime, setSelectedTime] = useState<number>(10);
   const navigate = useNavigate();
+  const information = useRecoilValue(ScheduleInformation);
+  const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
 
-  /*
-  type Timetype = {
-    departure: string;
-    required: string;
-    arrive: string;
+  useEffect(() => {
+    if (!accessToken.accessToken) {
+      navigate('/');
+    }
+  }, []);
+  const handleSelectTime = () => {
+    setSelectTimeOpen(!selectTimeOpen);
   };
-
-  const timeInfo: Timetype = {
-    departure: '2022.09.28 오후 2:00',
-    required: '60분',
-    arrive: '오후 3:00',
+  const next = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_WEB_API_URL}/schedule`,
+        {
+          title: information.scheduleName,
+          origin: information.origin,
+          originLatitude: information.originLatitude,
+          originLongitude: information.originLongitude,
+          destination: information.destination,
+          destinationLatitude: information.destinationLatitude,
+          destinationLongitude: information.destinationLongitude,
+          departureTime: recommendRoute.departure_time.value + '000',
+          arrivalTime: recommendRoute.arrival_time.value + '000',
+          beforeAlarm: selectedTime,
+          path: JSON.stringify(recommendRoute),
+          type: 'RECOMMEND',
+        },
+        {
+          headers: {
+            authorization: accessToken ? `Bearer ${accessToken.accessToken}` : '',
+          },
+        }
+      );
+      console.log(response.data);
+      navigate('/home');
+    } catch (error) {
+      console.log(error);
+    }
   };
-  */
 
   return (
     <div className="h-100 flex flex-col justify-between">
       <div>
-        <p>
-          <span className="text-mainGreen font-bold">{getDepart('1665320694')}</span>에 출발하면{' '}
-          <span className="text-mainGreen font-bold">{getDuration('1665320694','1665325335')}</span> 후,{' '}
-        </p>
-        <p className = 'mb-6'>
-          <span className="text-mainGreen font-bold">{getArrival('1665325335')}</span>에 도착할 수 있어요!
-        </p>
-        <OptTime />
-        <CheckDay />
+        <div className="text-xl mb-5">
+          <p>
+            <span className="text-mainGreen font-medium">{getDepart(recommendRoute.departure_time.value)}</span>에
+            출발하면
+            <br />
+            <span className="text-mainGreen font-medium">{recommendRoute.duration.text}</span> 후,{' '}
+            <span className="text-mainGreen font-medium">{getArrival(recommendRoute.arrival_time.value)}</span>에 도착할
+            수 있어요!
+          </p>
+        </div>
+
+        <div className="flex mt-10 text-xl">
+          <div
+            className={`flex justify-between w-16 px-2 py-1 border border-grey ${
+              selectTimeOpen ? 'border-b-0 rounded-t-lg' : 'rounded-lg'
+            }`}
+            onClick={() => setSelectTimeOpen(!selectTimeOpen)}
+          >
+            {selectedTime}
+            {selectTimeOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-4 h-6"
+              >
+                <path d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-4 h-6"
+              >
+                <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            )}
+          </div>
+          <p className="ml-2 py-1">분 전에 알림을 받아요!</p>
+        </div>
+        {selectTimeOpen && <SelectTime setSelectTimeOpen={setSelectTimeOpen} setSelectedTime={setSelectedTime} />}
       </div>
+
       <div className="flex justify-between mb-6 text-sm">
         <button
           className="w-20 h-7 bg-grey rounded-sm text-white drop-shadow-btn transfrom transition hover:scale-110 duration-100"
-          onClick={() => navigate('/selectPath')}
+          onClick={() => navigate('/addInfo')}
         >
           이전
         </button>
         <button
           className="w-20 h-7 bg-mainGreen rounded-sm text-white drop-shadow-btn transform transition hover:scale-110 duration-100"
-          onClick={() => navigate('/nogo!!')}
+          onClick={next}
         >
           완료
         </button>

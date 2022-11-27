@@ -22,7 +22,7 @@ const axiosWrap = async ({
       baseURL: process.env.REACT_APP_WEB_API_URL,
       params,
       headers: {
-        authorization: accessToken ? `Bearer ${accessToken}` : '',
+        authorization: accessToken ? `Bearer ${accessToken.accessToken}` : '',
       },
     };
     const { data } =
