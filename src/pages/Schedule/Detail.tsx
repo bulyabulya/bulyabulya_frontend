@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useParams } from 'react-router-dom';
 import getDate from 'components/getDate';
+import Subway from 'components/Subway';
+import SubwayColor from 'components/SubwayColor';
 
 interface Ischedule {
   id: number;
@@ -35,7 +37,7 @@ interface Ipath {
 
 function Detail() {
   const id = useParams().id;
-  
+
   const [schedule, setSchedule] = React.useState<Ischedule>({
     id: 0,
     origin: '',
@@ -88,7 +90,7 @@ function Detail() {
           알려드릴게요!
         </p>
       </div>
-      <div className='w-100 h-auto rounded-lg drop-shadow-3xl bg-lightGrey p-5'>
+      <div className="w-100 h-auto rounded-lg drop-shadow-3xl bg-lightGrey p-5">
         <div className="flex justify-between  font-light text-lg">
           <p className="text-lightBlack">
             {path.departure_time.text} ~ {path.arrival_time.text}
@@ -96,11 +98,44 @@ function Detail() {
           <p className="text-darkGrey">{path.duration.text}</p>
         </div>
 
-        {path.steps.map((value: Istep, key: number) => (
-          <div key={key}>
-            <p className="text-lightBlack">{value.travel_mode}</p>
-          </div>
-        ))}
+        <div>
+          <div>{schedule.origin}</div>
+          {path.steps.map((step: Istep, key: number) => (
+            <div key={key}>
+              {step.travel_mode === 'WALKING' && (
+                <div className="mt-1 flex">
+                  <div className="bg-darkGrey rounded-full w-7 h-7 text-white">
+                    <img className="w-7 h-7" alt="부랴부랴" src="/assets/walk.png" />
+                  </div>
+                  걷기
+                </div>
+              )}
+              {step.travel_mode === 'TRANSIT' && step.transit_details.vehicleType === 'BUS' && (
+                <div className="mt-1 flex">
+                  <img className="w-7 h-7" alt="부랴부랴" src="/assets/bus.png" /> {step.transit_details.departure_stop}
+                </div>
+              )}
+              {step.travel_mode === 'TRANSIT' && step.transit_details.vehicleType === 'BUS' && (
+                <div className="mt-1 flex">
+                  <div className="bg-[#379df1] rounded-full w-7 h-7 text-white"></div>
+                  {step.transit_details.arrival_stop}
+                </div>
+              )}
+              {step.travel_mode === 'TRANSIT' && step.transit_details.vehicleType === 'SUBWAY' && (
+                <div className="mt-1 flex">
+                  <Subway {...step.transit_details.number} />
+                  {step.transit_details.departure_stop}
+                </div>
+              )}
+              {step.travel_mode === 'TRANSIT' && step.transit_details.vehicleType === 'SUBWAY' && (
+                <div className="mt-1 flex">
+                  <SubwayColor {...step.transit_details.number} />
+                  {step.transit_details.arrival_stop}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

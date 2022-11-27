@@ -14,6 +14,8 @@ const Subway = (number: string) => {
       {number[0] === '8' && <div className='bg-[#E6186C] rounded-full w-7 h-7 text-white text-center align-middle text-lg'>{number[0]} </div>}
       {number[0] === '9' && <div className='bg-[#BDB092] rounded-full w-7 h-7 text-white text-center align-middle text-lg'>{number[0]} </div>}
 
+      {/* bus 379df1 */}
+
     </div>
   );
 };
