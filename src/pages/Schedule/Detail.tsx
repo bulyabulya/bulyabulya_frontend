@@ -88,7 +88,7 @@ function Detail() {
     <div>
       <div className='mb-3 text-2xl text-lightBlack font-semibold'>{schedule.title}</div>
       <div>
-        <p className="text-xl text-lightBlack font-normal mb-5 ">
+        <p className="text-lg text-lightBlack font-normal mb-5 ">
           <span className=" text-mainGreen  font-medium">{schedule.origin}</span> 에서{' '}
           <span className="text-mainGreen font-medium">{schedule.destination}</span> (으)로
           <br />
