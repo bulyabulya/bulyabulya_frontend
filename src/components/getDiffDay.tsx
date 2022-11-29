@@ -19,7 +19,7 @@ function GetDiffDay(props: any) {
         <div>
           {diffHour > 0 ? (
             <div className=" text-subGreen font-normal">
-              {diffHour}시간 {diffMinute}분 후
+              약 {diffHour}시간 후
             </div>
           ) : (
             <div className="text-mainGreen font-normal">{diffMinute}분 후</div>

@@ -52,6 +52,24 @@ function Home() {
     setMenuNumber(key);
     console.log(key);
   };
+  const handleClickLogout = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_WEB_API_URL}/auth/logout`,
+        {
+          headers: {
+            authorization: accessToken ? `Bearer ${accessToken.accessToken}` : '',
+          },
+        }
+      );
+      console.log(response.data);
+    }
+    catch (error) {
+      console.log(error);
+    }
+    removeCookie('accessToken');
+    navigate('/');
+  }
   useEffect(() => {
     if (!accessToken.accessToken) {
       navigate('/');
@@ -62,7 +80,7 @@ function Home() {
 
   return (
     <div className="w-full h-full">
-      <button className="w-7 h-7 text-grey font-black text-2xl absolute top-8 right-8">
+      <button className="w-7 h-7 text-grey font-black text-2xl absolute top-8 right-8" onClick={handleClickLogout}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
