@@ -32,6 +32,13 @@ function Home() {
     setMenuNumber(-1);
   };
 
+  const isLateCheck = (scheduleDate: string) => {
+    const now = new Date();
+    const schedule = new Date(scheduleDate);
+    const diff = schedule.getTime() - now.getTime();
+    return diff < 0 ? false : true;
+  };
+
   const getScheduleList = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_WEB_API_URL}/schedule/list`, {
@@ -50,32 +57,27 @@ function Home() {
   };
   const handleClickSchedule = (key: number) => {
     setMenuNumber(key);
-    console.log(key);
   };
   const handleClickLogout = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_WEB_API_URL}/auth/logout`,
-        {
-          headers: {
-            authorization: accessToken ? `Bearer ${accessToken.accessToken}` : '',
-          },
-        }
-      );
+      const response = await axios.get(`${process.env.REACT_APP_WEB_API_URL}/auth/logout`, {
+        headers: {
+          authorization: accessToken ? `Bearer ${accessToken.accessToken}` : '',
+        },
+      });
       console.log(response.data);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
     removeCookie('accessToken');
     navigate('/');
-  }
+  };
+
   useEffect(() => {
     if (!accessToken.accessToken) {
       navigate('/');
     }
     getScheduleList();
-    console.log(scheduleList);
   }, []);
 
   return (
@@ -99,7 +101,7 @@ function Home() {
               handleClickSchedule(key);
             }}
           >
-            <Schedule schedule={value}></Schedule>
+            {isLateCheck(value.departureTime) && <Schedule schedule={value}></Schedule>}
           </div>
         ))}
       </div>
@@ -111,7 +113,6 @@ function Home() {
       >
         일정 추가
       </button>
-      {/* {menuOpen && <ScheduleMenu menuOpen={menuOpen} close={close} />} */}
       {menuNumber !== -1 && (
         <ScheduleMenu
           id={scheduleList[menuNumber].id}
