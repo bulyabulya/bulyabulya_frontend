@@ -8,6 +8,7 @@ import { ScheduleInformation } from 'store/atom';
 
 function AddInfo() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
   const [information, setInformation] = useRecoilState(ScheduleInformation);
   const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
   const [autocompleteOrigin, setAutocompleteOrigin] = useState<any>(null);
@@ -43,6 +44,7 @@ function AddInfo() {
       const destinationLongitude: string = autocompleteDestination.getPlace().geometry.location.lng();
       const arrivaltime: number = new Date(arrivalTime).getTime();
       try {
+        setLoading(true);
         const response = await axios.get(
           `${process.env.REACT_APP_WEB_API_URL}/schedule/route/${originLatitude}/${originLongtitude}/${destinationLatitude}/${destinationLongitude}/${arrivaltime}`,
           {
@@ -63,11 +65,12 @@ function AddInfo() {
           destinationLongitude: destinationLongitude.toString(),
         });
         console.log(response.data.data);
-        navigate('/selectPath', {state: response.data.data});
+        navigate('/selectPath', { state: response.data.data });
       } catch (error) {
         console.log(error);
         alert('에러가 발생했습니다.');
       }
+      setLoading(false);
     } else {
       alert('모든 정보를 입력해주세요!');
     }
@@ -80,53 +83,57 @@ function AddInfo() {
 
   return (
     <div className=" h-100 flex flex-col justify-between">
-      <div>
-        <input
-          className=" text-xl border-none focus:outline-none mb-6"
-          placeholder="일정명을 입력하세요"
-          value={scheduleName}
-          onChange={(event) => {
-            setScheduleName(event.target.value);
-          }}
-        ></input>
-        <p className=" text-base font-medium mb-2 mt-3">출발지</p>
-        {isLoaded && (
-          <GoogleMap id="searchbox-example" mapContainerStyle={{ width: '100%', height: '40px' }}>
-            <Autocomplete onLoad={onLoadOrigin} onPlaceChanged={onPlaceChangedOrigin}>
-              <input
-                type="text"
-                placeholder="출발지"
-                className=" w-full h-10 text-sm font-light border border-grey rounded-sm p-1 mb-5 focus:outline-none overflow-visible absolute"
-              />
-            </Autocomplete>
-          </GoogleMap>
-        )}
-
-        <p className=" text-base font-medium mb-2 mt-3">도착지</p>
-        {isLoaded && (  
-          <GoogleMap id="searchbox-example" mapContainerStyle={{ width: '100%', height: '40px' }}>
-            <Autocomplete onLoad={onLoadDestination} onPlaceChanged={onPlaceChangedDestination}>
-              <input
-                type="text"
-                placeholder="도착지"
-                className=" w-full h-10 text-sm font-light border border-grey rounded-sm p-1 mb-5 focus:outline-none overflow-visible absolute"
-              />
-            </Autocomplete>
-          </GoogleMap>
+      {loading ? (
+        <div><img className="w-1/4 mx-auto mt-36" alt="부랴부랴" src="/assets/spinner.gif" ></img></div>
+      ) : (
+        <div>
+          <input
+            className=" text-xl border-none focus:outline-none mb-6"
+            placeholder="일정명을 입력하세요"
+            value={scheduleName}
+            onChange={(event) => {
+              setScheduleName(event.target.value);
+            }}
+          ></input>
+          <p className=" text-base font-medium mb-2 mt-3">출발지</p>
+          {isLoaded && (
+            <GoogleMap id="searchbox-example" mapContainerStyle={{ width: '100%', height: '40px' }}>
+              <Autocomplete onLoad={onLoadOrigin} onPlaceChanged={onPlaceChangedOrigin}>
+                <input
+                  type="text"
+                  placeholder="출발지"
+                  className=" w-full h-10 text-sm font-light border border-grey rounded-sm p-1 mb-5 focus:outline-none overflow-visible absolute"
+                />
+              </Autocomplete>
+            </GoogleMap>
           )}
-        <p className=" text-base font-medium mb-2 mt-3">도착 시간</p>
-        <input
-          className=" w-full h-10 text-sm font-light border border-grey rounded-sm p-1 mb-5 focus:outline-none"
-          placeholder="도착시간"
-          type="datetime-local"
-          value={arrivalTime}
-          min={timezoneDate}
-          onChange={(event) => {
-            setArrivalTime(event.target.value);
-          }}
-        ></input>
-      </div>
-      <div className="flex justify-between mb-6 text-sm">
+
+          <p className=" text-base font-medium mb-2 mt-3">도착지</p>
+          {isLoaded && (
+            <GoogleMap id="searchbox-example" mapContainerStyle={{ width: '100%', height: '40px' }}>
+              <Autocomplete onLoad={onLoadDestination} onPlaceChanged={onPlaceChangedDestination}>
+                <input
+                  type="text"
+                  placeholder="도착지"
+                  className=" w-full h-10 text-sm font-light border border-grey rounded-sm p-1 mb-5 focus:outline-none overflow-visible absolute"
+                />
+              </Autocomplete>
+            </GoogleMap>
+          )}
+          <p className=" text-base font-medium mb-2 mt-3">도착 시간</p>
+          <input
+            className=" w-full h-10 text-sm font-light border border-grey rounded-sm p-1 mb-5 focus:outline-none"
+            placeholder="도착시간"
+            type="datetime-local"
+            value={arrivalTime}
+            min={timezoneDate}
+            onChange={(event) => {
+              setArrivalTime(event.target.value);
+            }}
+          ></input>
+        </div>
+      )}
+      {!loading && <div className="flex justify-between mb-6 text-sm">
         <button
           className=" w-20 h-7 bg-grey rounded-sm text-white drop-shadow-btn transform transition hover:scale-110 duration-100"
           onClick={() => {
@@ -141,7 +148,7 @@ function AddInfo() {
         >
           경로 선택
         </button>
-      </div>
+      </div>}
     </div>
   );
 }
