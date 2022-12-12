@@ -2,6 +2,7 @@ import getDate from 'components/getDate';
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import getDepart from '../../components/getDepart';
 import GetDiffDay from '../../components/GetDiffDay';
+import Notification from '../../components/Notification';
 
 interface ScheduleProps {
   schedule: {
@@ -20,6 +21,8 @@ interface ScheduleProps {
     originLongitude: string;
     isQueued: number;
   };
+  setNotification: Dispatch<SetStateAction<boolean>>;
+  notification: boolean;
 }
 
 export function Schedule(props: ScheduleProps) {
@@ -32,8 +35,9 @@ export function Schedule(props: ScheduleProps) {
       </div>
 
       <div className=" my-auto text-grey font-light text-base">
-        <GetDiffDay departureTime={props.schedule.departureTime} />
+        <GetDiffDay departureTime={props.schedule.departureTime} setNotification={props.setNotification} notification={props.notification}/>
       </div>
+      
     </div>
   );
 }
