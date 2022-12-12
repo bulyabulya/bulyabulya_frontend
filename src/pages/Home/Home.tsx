@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notification from 'components/Notification';
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +25,7 @@ interface schedule {
 
 function Home() {
   const navigate = useNavigate();
+  const [notification, setNotification] = useState<boolean>(false);
   const [accessToken, setAccessToken, removeCookie] = useCookies(['accessToken']);
   const [scheduleList, setScheduleList] = useState<schedule[]>([]);
   const [menuNumber, setMenuNumber] = useState<number>(-1);
@@ -35,8 +37,9 @@ function Home() {
   const isLateCheck = (scheduleDate: string) => {
     const now = new Date();
     const schedule = new Date(scheduleDate);
-    const diff = schedule.getTime() - now.getTime();
-    return diff < 0 ? false : true;
+    const diffMin = (schedule.getTime() - now.getTime()) / (60 * 1000);
+    
+    return diffMin < -10 ? false : true;
   };
 
   const getScheduleList = async () => {
@@ -77,6 +80,7 @@ function Home() {
     if (!accessToken.accessToken) {
       navigate('/');
     }
+    
     getScheduleList();
   }, []);
 
@@ -101,7 +105,7 @@ function Home() {
               handleClickSchedule(key);
             }}
           >
-            {isLateCheck(value.departureTime) && <Schedule schedule={value}></Schedule>}
+            {isLateCheck(value.departureTime) && <Schedule schedule={value} setNotification={setNotification} notification={notification}></Schedule>}
           </div>
         ))}
       </div>
@@ -123,6 +127,10 @@ function Home() {
           close={close}
         />
       )}
+
+      {
+        notification && <Notification></Notification>
+      }
     </div>
   );
 }
